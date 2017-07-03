@@ -6,11 +6,12 @@ library(lubridate)
 
 # note for future task - have all .txt files in a single folder
 # read list of files into a vector
-# iterate over for(i in 1:nrow(vector)) {read, process, cbind to big datafile, clean up, empty df}
+files <- list.files(path = "/Users/peterhiggins/Documents/Rcode/biofire", pattern = "*.txt")
+# iterate over for(i in 1:length(vector)) {read file, process, clean up, rbind to big datafile, empty df}
 
 #two test files
-#file <- "FilmArray_Run_Date_2017_06_27_Sample_153_SN_09937928.txt"
-file <- "FilmArray_Run_Date_2017_06_28_Sample_301_SN_09937893.txt"
+file <- "FilmArray_Run_Date_2017_06_27_Sample_153_SN_09937928.txt"
+#file <- "FilmArray_Run_Date_2017_06_28_Sample_301_SN_09937893.txt"
 lns<- readLines(file)
 #print (lns)
 
@@ -43,9 +44,12 @@ df<-df[delrows:nrow(df),] # keeps from delrows to end
 #filter out rows with no results
 df <-filter(df, grepl("Detected ", Run.Summary)) #filters to keep only those with the word "Detected"
 
+df <-df%>% separate(Run.Summary, c("detect","bug"), sep="ed ")
+df$detect<- paste0(df$detect, "ed")
+df$pathogen <-str_trim(df$bug)
 #clean up Run.Summary (pathogen) column - removed detect/not detct, trim spaces
-df$pathogen <-df$Run.Summary %>% str_replace("Detected ", " ") %>% str_replace("Not ", " ") %>% str_trim()
-df <-df%>% select(sampid, rundate, pathogen, result) #keep only interesting columns, in order
+#df$pathogen <-df$Run.Summary %>% str_replace("Detected ", " ") %>% str_replace("Not ", " ") %>% str_trim()
+df <-df%>% select(sampid, rundate, pathogen, result, detect) #keep only interesting columns, in order
 
 
 
