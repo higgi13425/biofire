@@ -5,9 +5,64 @@ library(stringr)
 library(lubridate)
 
 # note for future task - have all .txt files in a single folder
+
+# read list of files into a vector to establish length
+files <- list.files(path = "/Users/peterhiggins/Documents/Rcode/biofire", pattern = "*.txt")
+
+#create clean_biofire function
+clean_biofire <- function(file){
+  lns<- readLines(file)
+  df <- read.csv(text=lns, stringsAsFactors=FALSE, skip = 8L, strip.white = TRUE)
+  id <- df[1,]
+  df$sampid <- as.numeric(str_trim(str_sub(id,15,18))) 
+  df$rundate <- dmy(str_sub(id,-11,-1))
+  df$Run.Summary[grepl("N/A", df$Run.Summary)]<- "Not Detected E. coli O157"
+  df$result <- !grepl("Not Detected", df$Run.Summary)
+  numpos <- (sum(df$result)-13)/2
+  delrows<-numpos +4
+  df<-df[delrows:nrow(df),] # keeps from delrows to end
+  df <-filter(df, grepl("Detected ", Run.Summary))
+  df <-df%>% separate(Run.Summary, c("detect","bug"), sep="ed ")
+  df$detect<- paste0(df$detect, "ed")
+  df$pathogen <-str_trim(df$bug)
+  df <-df%>% select(sampid, rundate, pathogen, result, detect) 
+  df
+}
+
+# #set up data frame - allocate space
+# fulldata <- function(n){
+#   sampid <- numeric(n)
+#   rundate <- Date(n)
+#   pathogen <-character(n)
+#   result <- logical(n)
+#   detect <- character(n)
+#   for i in 1:files{
+#     fulldata$sampid[i]<-i
+#     fulldata$rundate[i]<-as.Date(i)
+#     fulldata$pathogen[i]<- as.character(i)
+#     fulldata$result[i]<- as.logical(i)
+#     fulldata$detect[i]<-as.character(i)
+#   }
+#   data.frame(sampid, rundate, pathogen, result, detect, stringsAsFactors = F)
+# }
+
 # read list of files into a vector
 files <- list.files(path = "/Users/peterhiggins/Documents/Rcode/biofire", pattern = "*.txt")
+
+#now overwrite dataframe
+fulldata <- NULL #create fulldata file, empty
+
+for(file in files){
+  df <- clean_biofire(file)
+  fulldata <- rbind(fulldata, df)
+}
+df<- NULL #remove small df
 # iterate over for(i in 1:length(vector)) {read file, process, clean up, rbind to big datafile, empty df}
+
+fulldata %>% mutate(group = case_when(.$sampid<1000 ~ round(sampid/100),
+                              .$sampid >=1000 ~ round (sampid/1000)))
+
+
 
 #two test files
 file <- "FilmArray_Run_Date_2017_06_27_Sample_153_SN_09937928.txt"
