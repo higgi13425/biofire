@@ -3,6 +3,7 @@
 library(tidyverse)
 library(stringr)
 library(lubridate)
+library(readr)
 
 # note for future task - have all .txt files in a single folder
 
@@ -59,7 +60,7 @@ for(file in files){
 df<- NULL #remove small df
 # iterate over for(i in 1:length(vector)) {read file, process, clean up, rbind to big datafile, empty df}
 
-fulldata %>% mutate(group = case_when(.$sampid<1000 ~ round(sampid/100),
+fulldata <- fulldata %>% mutate(group = case_when(.$sampid<1000 ~ round(sampid/100),
                               .$sampid >=1000 ~ round (sampid/1000)))
 
 
@@ -108,4 +109,38 @@ df <-df%>% select(sampid, rundate, pathogen, result, detect) #keep only interest
 
 
 
+#testing pdftools
+library(pdftools)
+pdtext<- pdf_text("/Users/peterhiggins/Documents/Rcode/biofire/FilmArray_Run_Date_2017_06_27_Sample_153_SN_09937928.pdf")
+text2<- str_extract(pdtext, "Bacteria\n[\\s\\S]*Sapovirus")
+text2 <- read.csv(text=text2, stringsAsFactors=FALSE, strip.white = TRUE)
+text2$Bacteria[grepl("N/A", text2$Bacteria)] <- "Not Detected E. coli O157"
+text2 <- text2 %>% separate(Bacteria, c("detect","bug"), sep="ed ")
+text2$detect<- paste0(text2$detect, "ed")
+text2<-filter(text2, text5$bug != "NA")
+text2$bug<- str_trim(text2$bug)
+text2
 
+
+# new version for data from CDR query for GIPAN
+dfclin <- read_csv('clinical_biofire_CDR.csv')
+dfclin <- filter(dfclin, RESULT_TEXT != "NA")
+
+dfclin <- dfclin[1:27,] #needs to be modified to be robust to true number of rows
+dfclin$RESULT_TEXT <- str_extract(dfclin$RESULT_TEXT, "Campylobacter [\\s\\S]*Sapovirus [\\s\\S]*etected")
+#cleans out junk - now only results
+dfclin$RESULT_TEXT <- str_replace(dfclin$RESULT_TEXT, "\n \n", "\n")
+# cleans out extra newline after Campylobacter
+
+dfclin<- dfclin %>% transform(RESULT_TEXT = strsplit(RESULT_TEXT, "\n ")) %>% unnest(RESULT_TEXT)
+# splits on newlines, then unnests
+
+dfclin$RESULT_TEXT <- str_replace(dfclin$RESULT_TEXT, "Detected", "NDetected")
+#attach N to beginning of detected, so can do split
+
+dfclin <- separate(dfclin, RESULT_TEXT, c("bug","detect"), sep=" N")
+#separate into two columns
+
+dfclin$detect <- str_replace(dfclin$detect, "ot", "Not") # add back N to Not
+dfclin$bug <- str_trim(dfclin$bug) #trims off extra spaces
+dfclin <- filter(dfclin, bug != "NA")
