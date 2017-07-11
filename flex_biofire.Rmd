@@ -1,0 +1,106 @@
+---
+title: "Biofire Counts"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+flex <- readRDS("flex.rds")
+```
+    
+Row
+-------------------------------------
+    
+### Campylobacter
+    
+```{r}
+value <- flex[1,2]
+valueBox(value, icon = "fa-exclamation-circle", color = ifelse(value > 10, "red", "blue"))
+```
+ 
+### Clostridium difficile
+    
+```{r}
+value <- flex[2,2]
+valueBox(value, icon = "fa-ambulance", color = ifelse(value > 10, "red", "blue"))
+``` 
+
+### Plesiomonas shigelloides
+    
+```{r}
+value <- flex[3,2]
+valueBox(value, icon = "fa-stethoscope", color = ifelse(value > 10, "red", "blue"))
+```
+    
+### Salmonella
+
+```{r}
+value <- flex[4,2]
+valueBox(value, icon = "fa-heartbeat", color = ifelse(value > 10, "red", "blue"))
+```
+
+Row
+-------------------------------------
+
+### Vibrio
+    
+```{r}
+value <- flex[5,2]
+valueBox(value, icon = "fa-user-md", color = ifelse(value > 10, "red", "blue"))
+```
+    
+### Vibrio cholerae
+
+```{r}
+value <- flex[6,2]
+valueBox(value, icon = "fa-bug", color = ifelse(value > 10, "red", "blue"))
+```   
+
+### Yersinia enterocolitica
+    
+```{r}
+value <- flex[7,2]
+valueBox(value, icon = "fa-flask", color = ifelse(value > 10, "red", "blue"))
+```
+    
+### Enteroaggregative E. coli (EAEC)
+
+```{r}
+value <- flex[8,2]
+valueBox(value, icon = "fa-heart", color = ifelse(value > 10, "red", "blue"))
+```   
+
+Row
+-------------------------------------
+
+### Enteropathogenic E. coli (EPEC)
+    
+```{r}
+value <- flex[9,2]
+gauge(value, min = 0, max = 100,  gaugeSectors(success = c(0, 5), warning = c(6, 10), danger = c(11, 100)))
+```
+    
+### Enterotoxigenic E. coli (ETEC) lt/st
+
+```{r}
+value <- flex[10,2]
+gauge(value, min = 0, max = 100,  gaugeSectors(success = c(0, 5), warning = c(6, 10), danger = c(11, 100)))
+```   
+
+### Shiga-like toxin-producing E. coli (STEC) stx1/stx2
+    
+```{r}
+value <- flex[11,2]
+gauge(value, min = 0, max = 100,  gaugeSectors(success = c(0, 5), warning = c(6, 10), danger = c(11, 100)))
+```
+    
+### E. coli O157
+
+```{r}
+value <- flex[12,2]
+gauge(value, min = 0, max = 100,  gaugeSectors(success = c(0, 5), warning = c(6, 10), danger = c(11, 100)))
+```   
+
+

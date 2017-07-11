@@ -107,6 +107,10 @@ df$pathogen <-str_trim(df$bug)
 #df$pathogen <-df$Run.Summary %>% str_replace("Detected ", " ") %>% str_replace("Not ", " ") %>% str_trim()
 df <-df%>% select(sampid, rundate, pathogen, result, detect) #keep only interesting columns, in order
 
+#create df for flexdasboard
+flex <- df %>% select(pathogen)
+flex$count <- c(11,22,5,15,1,2,3,7,9,11,12,8,14,5,3,2,4,4,3,23,3,8)
+saveRDS(flex, "flex.rds")
 
 
 #testing pdftools
