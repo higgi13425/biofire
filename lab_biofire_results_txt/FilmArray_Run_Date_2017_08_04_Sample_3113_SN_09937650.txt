@@ -1,0 +1,46 @@
+﻿----------------------- Page 1-----------------------
+
+         FilmArray™ 
+
+         GI Panel 
+
+                                                                                                         www.BioFireDx.com 
+
+Run Summary 
+     Sample ID:    3113                                                                     Run Date:    04 Aug 2017 
+                                                                                                         12:00 PM 
+      Detected:    None                                                                     Controls:    Passed 
+
+Result Summary 
+                                                          Bacteria 
+   Not Detected              Campylobacter 
+   Not Detected              Clostridium difficile toxin A/B 
+   Not Detected              Plesiomonas shigelloides 
+   Not Detected              Salmonella 
+   Not Detected              Vibrio 
+   Not Detected                 Vibrio cholerae 
+   Not Detected              Yersinia enterocolitica 
+                                               Diarrheagenic E. coli/Shigella 
+   Not Detected              Enteroaggregative E. coli (EAEC) 
+   Not Detected              Enteropathogenic E. coli (EPEC) 
+   Not Detected              Enterotoxigenic E. coli (ETEC) lt/st 
+   Not Detected              Shiga-like toxin-producing E. coli (STEC) stx1/stx2 
+   N/A                          E. coli O157 
+   Not Detected              Shigella/Enteroinvasive E. coli (EIEC) 
+                                                          Parasites 
+   Not Detected              Cryptosporidium 
+   Not Detected              Cyclospora cayetanensis 
+   Not Detected              Entamoeba histolytica 
+   Not Detected              Giardia lamblia 
+                                                           Viruses 
+   Not Detected              Adenovirus F 40/41 
+   Not Detected              Astrovirus 
+   Not Detected              Norovirus GI/GII 
+   Not Detected              Rotavirus A 
+   Not Detected              Sapovirus 
+
+Run Details 
+         Pouch:    GI Panel v2.1                                                   Protocol:   Stool FA v3.3 
+    Run Status:    Completed                                                      Operator:    Zachary Saleh (zsaleh) 
+     Serial No.:   09937650                                                     Instrument:    2FA00539 
+        Lot No.:   558417 
