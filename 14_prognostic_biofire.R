@@ -5,7 +5,7 @@ library(desctable)
 library(pander)
 library(tidyverse)
 library(rmarkdown)
-library(kable)
+#library(kable)
 library(kableExtra)
 library(knitr)
 library(ggstance)
@@ -14,7 +14,7 @@ library(forcats)
 library(magrittr)
 library(extrafont)
 library(janitor)
-font_import()
+ 
 fonts()
 fonttable()
 
@@ -57,18 +57,18 @@ biofire_rect %>%
   summarise(sur_pct= 100*mean(f_surg_dichot), count= n()) 
 
 
-%>% 
-  ggplot(., aes(f_surg_fact, sur_pct, fill = sur_pct)) +
-  geom_col(show.legend = FALSE) +
-  geom_text(aes(x=0.3, y= f_surg_fact, label = group), color="black",
-            family="Arial-ItalicMT", size=5, hjust=0) +
-  geom_text(aes(x=26, y= f_surg_dichot, label = round(inf_pct, digits=1)), color="black",
-            family="Arial", size=5, hjust=0) +
-  coord_flip() +
-  theme(strip.text = element_text(hjust=0, family = "Arial", size = 12)) +
-  scale_y_continuous(expand=c(0,0)) +
-  labs(x= "Presence of Infection", title ="Need for Surgery in CD by Infection Status", 
-       y="Percent requiring surgery within 90 days")
+# %>% 
+#   ggplot(., aes(f_surg_fact, sur_pct, fill = sur_pct)) +
+#   geom_col(show.legend = FALSE) +
+#   geom_text(aes(x=0.3, y= f_surg_fact, label = group), color="black",
+#             family="Arial-ItalicMT", size=5, hjust=0) +
+#   geom_text(aes(x=26, y= f_surg_dichot, label = round(inf_pct, digits=1)), color="black",
+#             family="Arial", size=5, hjust=0) +
+#   coord_flip() +
+#   theme(strip.text = element_text(hjust=0, family = "Arial", size = 12)) +
+#   scale_y_continuous(expand=c(0,0)) +
+#   labs(x= "Presence of Infection", title ="Need for Surgery in CD by Infection Status", 
+#        y="Percent requiring surgery within 90 days")
 
 
 

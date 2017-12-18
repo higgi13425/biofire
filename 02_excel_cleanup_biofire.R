@@ -62,7 +62,7 @@ jul2 <- jul2 %>% mutate(group = fct_recode(
   "Inactive CD" = "2",
   "Active UC" = "3",
   "Inactive UC" = "4",
-  "IBS" = "5",
+  "IBS-D" = "5",
   "Healthy Control" = "6"
 )) 
 # note all have a group

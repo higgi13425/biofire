@@ -4,7 +4,7 @@
 ##
 #Packages and functions for analysis of BioFire data.
 #clean up the environment first
-rm(list=ls())
+#rm(list=ls())
 
 #Packages
 library(tidyverse)
@@ -55,3 +55,8 @@ clean_biofire_pdf <- function(file){
   text2  
 }
 
+##test example for pdf
+
+test <- clean_biofire_pdf("lab_biofire_results_pdf/FilmArray_Run_Date_2017_06_27_Sample_153_SN_09937928.pdf")
+library(WriteXLS)
+WriteXLS(test,"table.xls")

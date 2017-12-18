@@ -60,6 +60,7 @@ colnames(fulldata_spread)[23] <- "E. coli O157"
 saveRDS(fulldata_spread, "/Users/peterhiggins/Documents/Rcode/biofire/lab_biofire.rds")
 #test it
 lab_biofire <- read_rds("/Users/peterhiggins/Documents/Rcode/biofire/lab_biofire.rds")
-##
+
+setwd("/Users/peterhiggins/Documents/Rcode/biofire")##
 # lab_biofire.rds now clean, locked, and saved.
 ## 

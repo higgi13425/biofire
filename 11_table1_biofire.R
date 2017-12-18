@@ -4,7 +4,7 @@ library(desctable)
 library(pander)
 library(tidyverse)
 library(rmarkdown)
-library(kable)
+#library(kable)
 library(kableExtra)
 library(knitr)
 # read in data
