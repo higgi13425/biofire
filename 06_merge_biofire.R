@@ -22,22 +22,23 @@ biofire4 <- rbind(biofire2, biofire3)
 biofire5 <- clean_names(biofire4)
 
 # count infections
-biofire5 <- biofire5 %>% select(adenovirus_f_40_41:e_coli_o157) %>% 
+biofire6 <- biofire5 %>% select(adenovirus_f_40_41:e_coli_o157) %>% 
   mutate(inf_count = rowSums(.)) %>% 
-  select(inf_count) %>% cbind(biofire5)
+  select(inf_count) 
+biofire7 <- cbind(biofire5, biofire6)
 #generate a dichotmous marker variable
-biofire5$inf <- 0
-biofire5$inf[biofire5$inf_count>0] <- 1
+biofire7$inf <- 0
+biofire7$inf[biofire7$inf_count>0] <- 1
 
 # select only the inf and inf_count
-biofire6 <- biofire5 %>% select(inf, inf_count)
+biofire8 <- biofire7 %>% select(inf, inf_count)
 #merge these back to biofire4, which has the 'nice' pathogen names
-biofire7 <- bind_cols(biofire4, biofire6)
+biofire9 <- bind_cols(biofire4, biofire8)
 #checking
 # crosstab(biofire7$inf, biofire7$inf_count) - matches up
 
 #problem - some inf=1 have fc= NA
 
-saveRDS(biofire7, "~/Documents/Rcode/biofire/biofire_rect.rds")
+saveRDS(biofire9, "~/Documents/Rcode/biofire/biofire_rect.rds")
 
 biofire_rect <- read_rds("~/Documents/Rcode/biofire/biofire_rect.rds")
